@@ -11,6 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SalonLocatorApp">
+
+        <activity
+            android:name=".AddEditActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
