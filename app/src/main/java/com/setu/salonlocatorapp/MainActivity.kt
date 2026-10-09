@@ -20,12 +20,13 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
+        //refreshes list when screen becomes active, including adding a salon
         if (::listLayout.isInitialized) {
             displaySalons()
         }
     }
 
-    private fun createUserInterface() {
+    private fun createUserInterface() { //arranges the screen's controls and the padding values are measured in pixels
 
         val root = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             gravity = Gravity.CENTER
         }
 
-
+        //create container that will hold the enteries
         listLayout = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
         }
@@ -53,6 +54,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+            //places buttons on screen
         root.addView(title)
         root.addView(addButton)
         root.addView(listLayout)
@@ -61,9 +63,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun displaySalons() {
-
+// removes the old displayed enteries so there is no duplicatyes
         listLayout.removeAllViews()
 
+            //retrieves salons from shared in-memory state
         val salons = AppData.salons.findAll()
 
         if (salons.isEmpty()) {
@@ -78,13 +81,14 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        for (salon in salons) {
+        for (salon in salons) { // create a text view for each salon in the store
 
             val salonText = TextView(this).apply {
                 text =
                     "${salon.name}\n" +
                             "${salon.location}\n" +
-                            "Price: €${salon.price}"
+                            "Price: €${salon.price}\n" +
+                            "Distance: ${salon.distanceKm}km"
 
                 textSize = 18f
                 setPadding(0, 20, 0, 20)

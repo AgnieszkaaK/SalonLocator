@@ -11,9 +11,9 @@ class SalonMemStore : SalonStore {
         return salons
     }
 
-    override fun create(salon: SalonModel) {
+    override fun create(salon: SalonModel) { //when salon gets added, the counter is increased by 1 and assigns the new ID to the salon
         salon.id = lastId.incrementAndGet()
-        salons.add(salon)
+        salons.add(salon) //add the salon to the in-memory state
     }
 
     override fun update(salon: SalonModel): Boolean {
