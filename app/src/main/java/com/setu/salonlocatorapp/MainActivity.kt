@@ -95,6 +95,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             listLayout.addView(salonText)
+
+
             val editButton = Button(this).apply {
                 text = "Edit"
 
@@ -112,6 +114,18 @@ class MainActivity : AppCompatActivity() {
             }
 
             listLayout.addView(editButton)
+
+            val deleteButton = Button(this).apply {
+                text = "Delete"
+
+                setOnClickListener {
+                    // deletes salon using its ID, then refreshes to show its gone
+                    AppData.salons.delete(salon.id)
+                    displaySalons()
+                }
+            }
+
+            listLayout.addView(deleteButton)
         }
     }
 }
