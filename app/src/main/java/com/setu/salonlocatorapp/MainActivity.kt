@@ -95,6 +95,23 @@ class MainActivity : AppCompatActivity() {
             }
 
             listLayout.addView(salonText)
+            val editButton = Button(this).apply {
+                text = "Edit"
+
+                setOnClickListener {
+                    val intent = Intent(
+                        this@MainActivity,
+                        AddEditActivity::class.java
+                    )
+
+                    // tells the form which salon to edit
+                    intent.putExtra("id", salon.id)
+
+                    startActivity(intent)
+                }
+            }
+
+            listLayout.addView(editButton)
         }
     }
 }
