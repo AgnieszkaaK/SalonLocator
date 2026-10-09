@@ -5,36 +5,36 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".SalonListActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp">
 
         <TextView
-            android:id="@+id/mainTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Salon Locator"
-            android:textSize="34sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/viewSalonsButton"
+            android:id="@+id/salonsTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="View Salons" />
+            android:layout_marginBottom="24dp"
+            android:text="Salons"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/SalonRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <Button
-            android:id="@+id/addSalonButton"
+            android:id="@+id/returnButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Add Salon" />
+            android:layout_marginBottom="44dp"
+            android:text="Back to Menu" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
