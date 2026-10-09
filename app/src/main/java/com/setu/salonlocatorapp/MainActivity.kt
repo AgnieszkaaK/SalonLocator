@@ -95,6 +95,37 @@ class MainActivity : AppCompatActivity() {
             }
 
             listLayout.addView(salonText)
+
+
+            val editButton = Button(this).apply {
+                text = "Edit"
+
+                setOnClickListener {
+                    val intent = Intent(
+                        this@MainActivity,
+                        AddEditActivity::class.java
+                    )
+
+                    // tells the form which salon to edit
+                    intent.putExtra("id", salon.id)
+
+                    startActivity(intent)
+                }
+            }
+
+            listLayout.addView(editButton)
+
+            val deleteButton = Button(this).apply {
+                text = "Delete"
+
+                setOnClickListener {
+                    // deletes salon using its ID, then refreshes to show its gone
+                    AppData.salons.delete(salon.id)
+                    displaySalons()
+                }
+            }
+
+            listLayout.addView(deleteButton)
         }
     }
 }
