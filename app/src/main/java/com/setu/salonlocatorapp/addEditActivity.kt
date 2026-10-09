@@ -1,10 +1,9 @@
 package com.setu.salonlocatorapp
 
 import android.os.Bundle
-import android.text.InputType
 import android.widget.Button
 import android.widget.EditText
-import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.setu.salonlocatorapp.models.SalonModel
@@ -27,64 +26,39 @@ class AddEditActivity : AppCompatActivity() {
         editingId = intent.getLongExtra("id", -1L)
 
         if (editingId != -1L) {
+            findViewById<TextView>(R.id.formTitle).text = "Edit Salon"
             loadExistingSalon(editingId!!)
         }
     }
 
-    private fun createUserInterface() { // arranges form controls vertically with space around edges
+    private fun createUserInterface() {
 
-        val root = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            setPadding(32, 120, 32, 32)
+        // layout settings are not defined in activityaddedit.xml
+        setContentView(R.layout.activityaddedit)
+
+        nameInput = findViewById(R.id.nameInput)
+        locationInput = findViewById(R.id.locationInput)
+
+        // XML inputType setting
+        //requests numeric input (with possible decimal) for price
+        priceInput = findViewById(R.id.priceInput)
+
+        // distance is entered in kilometers
+        distanceInput = findViewById(R.id.distanceInput)
+
+        val saveButton = findViewById<Button>(R.id.saveButton)
+
+        //validates the form and saves when button is tapped
+        saveButton.setOnClickListener {
+            saveSalon()
         }
 
-        nameInput = EditText(this).apply {
-            hint = "Salon name"
+        val cancelButton = findViewById<Button>(R.id.cancelButton)
+
+        //closes screen without saving
+        cancelButton.setOnClickListener {
+            finish()
         }
-
-        locationInput = EditText(this).apply {
-            hint = "Location"
-        }
-
-        priceInput = EditText(this).apply {
-            hint = "Price (€)"
-            inputType =
-                InputType.TYPE_CLASS_NUMBER or //requests numeric input (with possible decimal) for price
-                        InputType.TYPE_NUMBER_FLAG_DECIMAL
-        }
-
-        distanceInput = EditText(this).apply {
-            hint = "Distance (km)" // distance is entered in kilometers
-            inputType =
-                InputType.TYPE_CLASS_NUMBER or
-                        InputType.TYPE_NUMBER_FLAG_DECIMAL
-        }
-
-        val saveButton = Button(this).apply { //validates the form and saves when button is tapped
-            text = "Save"
-
-            setOnClickListener {
-                saveSalon()
-            }
-        }
-
-        val cancelButton = Button(this).apply { //closes screen without saving
-            text = "Cancel"
-
-            setOnClickListener {
-                finish()
-            }
-        }
-
-//controls in the order they should appear
-        root.addView(nameInput)
-        root.addView(locationInput)
-        root.addView(priceInput)
-        root.addView(distanceInput)
-        root.addView(saveButton)
-        root.addView(cancelButton)
-
-        setContentView(root)
     }
 
     private fun loadExistingSalon(id: Long) {

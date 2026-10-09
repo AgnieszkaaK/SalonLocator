@@ -18,6 +18,8 @@
             android:id="@+id/salonsTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
             android:text="Salons"
             android:textSize="34sp"
             android:textStyle="bold" />
@@ -32,6 +34,7 @@
             android:id="@+id/returnButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="44dp"
             android:text="Back to Menu" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
