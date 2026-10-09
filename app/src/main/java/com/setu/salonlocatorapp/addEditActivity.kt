@@ -7,18 +7,20 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import com.setu.salonlocatorapp.models.SalonModel
+import android.text.InputType
 class AddEditActivity : AppCompatActivity() {
-
+//fields initialised when interface is created
     private lateinit var nameInput: EditText
     private lateinit var locationInput: EditText
-
+    private lateinit var priceInput: EditText
+    private lateinit var distanceInput: EditText
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState) //saves screen states
 
         createUserInterface()
     }
 
-    private fun createUserInterface() {
+    private fun createUserInterface() { // arranges form controls vertically with space around edges
 
         val root = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
@@ -32,7 +34,20 @@ class AddEditActivity : AppCompatActivity() {
         locationInput = EditText(this).apply {
             hint = "Location"
         }
-        val saveButton = Button(this).apply {
+        priceInput = EditText(this).apply {
+            hint = "Price (€)"
+            inputType =
+                InputType.TYPE_CLASS_NUMBER or //requests numeric input (with possible decimal) for price
+                        InputType.TYPE_NUMBER_FLAG_DECIMAL
+        }
+
+        distanceInput = EditText(this).apply {
+            hint = "Distance (km)" // distance is entered in kilometers
+            inputType =
+                InputType.TYPE_CLASS_NUMBER or
+                        InputType.TYPE_NUMBER_FLAG_DECIMAL
+        }
+        val saveButton = Button(this).apply { //validates the form and saves when button is tapped
             text = "Save"
 
             setOnClickListener {
@@ -40,27 +55,29 @@ class AddEditActivity : AppCompatActivity() {
             }
         }
 
-        val cancelButton = Button(this).apply {
+        val cancelButton = Button(this).apply { //closes screen without saving
             text = "Cancel"
 
             setOnClickListener {
                 finish()
             }
         }
-
+//controls in the order they should appear
         root.addView(nameInput)
         root.addView(locationInput)
+        root.addView(priceInput)
+        root.addView(distanceInput)
         root.addView(saveButton)
         root.addView(cancelButton)
 
         setContentView(root)
     }
-        private fun saveSalon() {
+        private fun saveSalon() { //reads text and removes any spaces from start or end
             val name = nameInput.text.toString().trim()
             val location = locationInput.text.toString().trim()
 
             if (name.isEmpty()) {
-                nameInput.error = "Salon name is required"
+                nameInput.error = "Salon name is required" //show error is nothing entered
                 return
             }
 
@@ -68,15 +85,30 @@ class AddEditActivity : AppCompatActivity() {
                 locationInput.error = "Location is required"
                 return
             }
+            val price = priceInput.text.toString().toDoubleOrNull() // converts price to double
+
+            if (price == null || !price.isFinite() || price < 0) { // checks that the number is not infinity or not a number or invalid numbers
+                priceInput.error = "Enter a valid price of 0 or more"
+                return
+            }
+
+            val distance = distanceInput.text.toString().toDoubleOrNull()
+
+            if (distance == null || !distance.isFinite() || distance < 0) {
+                distanceInput.error = "Enter a valid distance of 0 or more"
+                return
+            }
 
             val salon = SalonModel(
                 name = name,
-                location = location
+                location = location,
+                price = price,
+                distanceKm = distance
             )
 
-            AppData.salons.create(salon)
+            AppData.salons.create(salon) //add salon to shared in-memory store
 
-            Toast.makeText(
+            Toast.makeText( //confirm success and return to the previous screen
                 this,
                 "Salon created",
                 Toast.LENGTH_SHORT
