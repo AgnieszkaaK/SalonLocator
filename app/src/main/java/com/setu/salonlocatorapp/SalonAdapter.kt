@@ -3,15 +3,13 @@ package com.setu.salonlocatorapp
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.setu.salonlocatorapp.models.SalonModel
-
+import timber.log.Timber
 class SalonAdapter(
     private var salons: List<SalonModel>,
-    private val onEdit: (SalonModel) -> Unit,
-    private val onDelete: (SalonModel) -> Unit
+    private val listener: OnSalonListener
 ) : RecyclerView.Adapter<SalonAdapter.SalonViewHolder>() {
 
     // Holds references to the controls in one salon row
@@ -26,14 +24,7 @@ class SalonAdapter(
 
         val detailsText: TextView =
             itemView.findViewById(R.id.detailsText)
-
-        val editButton: Button =
-            itemView.findViewById(R.id.editButton)
-
-        val deleteButton: Button =
-            itemView.findViewById(R.id.deleteButton)
     }
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -66,12 +57,14 @@ class SalonAdapter(
         holder.detailsText.text =
             "Price: €${salon.price}, Distance: ${salon.distanceKm} km"
 
-        holder.editButton.setOnClickListener {
-            onEdit(salon)
+        holder.itemView.setOnClickListener {
+            Timber.d("Salon tapped id=${salon.id}")
+            listener.onSalonClick(salon)
         }
 
-        holder.deleteButton.setOnClickListener {
-            onDelete(salon)
+        holder.itemView.setOnLongClickListener {
+            Timber.d("Salon long-pressed id=${salon.id}")
+            listener.onSalonLongClick(salon)
         }
     }
 

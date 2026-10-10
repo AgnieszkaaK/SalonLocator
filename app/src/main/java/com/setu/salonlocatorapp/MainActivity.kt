@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,6 +12,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
+        if (Timber.treeCount == 0) {
+            Timber.plant(Timber.DebugTree())
+        }
 
         val viewSalonsButton =
             findViewById<Button>(R.id.viewSalonsButton)

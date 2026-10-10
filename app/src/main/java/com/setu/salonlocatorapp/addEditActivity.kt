@@ -7,7 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.setu.salonlocatorapp.models.SalonModel
-
+import timber.log.Timber
 class AddEditActivity : AppCompatActivity() {
 
     //fields initialised when interface is created
@@ -120,6 +120,7 @@ class AddEditActivity : AppCompatActivity() {
             )
 
             AppData.salons.create(salon) //add salon to shared in-memory store
+            Timber.d("Created salon id=${salon.id}")
 
             Toast.makeText( //confirm success and return to the previous screen
                 this,
@@ -155,6 +156,7 @@ class AddEditActivity : AppCompatActivity() {
             )
 
             AppData.salons.update(salon)
+            Timber.d("Updated salon id=${salon.id}")
 
             Toast.makeText(
                 this,
