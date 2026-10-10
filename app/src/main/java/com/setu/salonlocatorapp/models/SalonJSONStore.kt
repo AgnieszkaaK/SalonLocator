@@ -6,7 +6,7 @@ import android.content.Context
 import java.io.File
 import com.google.gson.Gson
 //based on SalonMemStore
-//JSON loading and saving will be added next
+
 class SalonJSONStore(context: Context) : SalonStore {
 
     private val gson = Gson()// converts salon objects to JSON and back
@@ -18,6 +18,10 @@ class SalonJSONStore(context: Context) : SalonStore {
     private val salons = ArrayList<SalonModel>()
     private val lastId = AtomicLong(0L)
 
+    init { // runs when the store is created and loads any saved salons
+        load()
+    }
+
     override fun findAll(): List<SalonModel> {
         return salons
     }
@@ -27,7 +31,7 @@ class SalonJSONStore(context: Context) : SalonStore {
         salons.add(salon) //add the salon to the in-memory state
         save()
 
-        Timber.d("Memory store: created salon id=${salon.id}")
+        Timber.d("JSON store: created salon id=${salon.id}")
     }
 
     override fun update(salon: SalonModel): Boolean {
@@ -69,8 +73,34 @@ class SalonJSONStore(context: Context) : SalonStore {
         // writes the text to salons.json, replacing its previous contents
         file.writeText(json)
     }
+    private fun load() {
+
+        // there is no saved file when the app is first used
+        if (!file.exists()) {
+            return
+        }
+
+        // reads the JSON text from the file
+        val json = file.readText()
+
+        // converts the JSON text back into salon objects
+        val savedSalons = gson.fromJson(json, Array<SalonModel>::class.java)
+
+        // puts the saved salons into our list
+        salons.addAll(savedSalons)
+
+        // finds the highest saved ID so new salons get a different ID
+        for (salon in salons) {
+            if (salon.id > lastId.get()) {
+                lastId.set(salon.id)
+            }
+        }
+    }
+
 
     override fun findOne(id: Long): SalonModel? {
         return salons.find { salon -> salon.id == id }
+
     }
+
 }
