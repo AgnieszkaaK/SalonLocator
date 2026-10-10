@@ -1,7 +1,8 @@
 package com.setu.salonlocatorapp
 
-import com.setu.salonlocatorapp.models.SalonMemStore
+import com.setu.salonlocatorapp.models.SalonStore
 
 object AppData {
-    val salons = SalonMemStore()
+    // assigned when the application starts
+    lateinit var salons: SalonStore
 }
