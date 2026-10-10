@@ -2,11 +2,15 @@ package com.setu.salonlocatorapp.models
 
 import java.util.concurrent.atomic.AtomicLong
 import timber.log.Timber
+import android.content.Context
+import java.io.File
 
 //based on SalonMemStore
 //JSON loading and saving will be added next
-class SalonJSONStore  : SalonStore {
-
+class SalonJSONStore(context: Context) : SalonStore {
+    // the file used to save salons in the app's internal storage
+    private val file = File(context.filesDir, "salons.json")
+//filesDir gives folder for app to save its private files
     private val salons = ArrayList<SalonModel>()
     private val lastId = AtomicLong(0L)
 
