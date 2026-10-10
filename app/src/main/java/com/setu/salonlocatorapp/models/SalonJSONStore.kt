@@ -4,11 +4,14 @@ import java.util.concurrent.atomic.AtomicLong
 import timber.log.Timber
 import android.content.Context
 import java.io.File
-
+import com.google.gson.Gson
 //based on SalonMemStore
 //JSON loading and saving will be added next
 class SalonJSONStore(context: Context) : SalonStore {
     // the file used to save salons in the app's internal storage
+
+    private val gson = Gson()// converts salon objects to JSON and back
+
     private val file = File(context.filesDir, "salons.json")
 //filesDir gives folder for app to save its private files
     private val salons = ArrayList<SalonModel>()
@@ -52,6 +55,14 @@ class SalonJSONStore(context: Context) : SalonStore {
         } else {
             false
         }
+    }
+    private fun save() {
+
+        // converts the current salon list into JSON text
+        val json = gson.toJson(salons)
+
+        // writes the text to salons.json, replacing its previous contents
+        file.writeText(json)
     }
 
     override fun findOne(id: Long): SalonModel? {
