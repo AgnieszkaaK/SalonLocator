@@ -38,7 +38,7 @@
                 android:id="@+id/ratingFilterSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="296dp"
+                android:layout_marginStart="256dp"
                 android:checked="false"
                 android:fontFamily="sans-serif-light"
                 android:gravity="center_horizontal"
