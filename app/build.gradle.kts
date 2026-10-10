@@ -34,6 +34,7 @@ android {
 
 dependencies {
     implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation("com.google.code.gson:gson:2.14.0") // converts objects to JSON and back
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.cardview)
