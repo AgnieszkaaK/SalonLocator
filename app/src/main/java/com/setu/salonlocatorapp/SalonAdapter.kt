@@ -24,6 +24,13 @@ class SalonAdapter(
 
         val detailsText: TextView =
             itemView.findViewById(R.id.detailsText)
+
+        // holds references to the personal rating and review labels
+        val personalRatingText: TextView =
+            itemView.findViewById(R.id.personalRatingText)
+
+        val personalReviewText: TextView =
+            itemView.findViewById(R.id.personReviewText)
     }
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -56,6 +63,23 @@ class SalonAdapter(
 
         holder.detailsText.text =
             "Price: €${salon.price}, Distance: ${salon.distanceKm} km"
+
+        // displays the salon's personal rating
+        holder.personalRatingText.text =
+            if (salon.personalRating > 0) { //if above 0
+                "Your rating: ${salon.personalRating}/5"
+            } else {
+                "Not rated yet"
+            }
+
+        // displays the review and hides the label if it is empty
+        holder.personalReviewText.text = salon.personalReview
+        holder.personalReviewText.visibility =
+            if (salon.personalReview.isBlank()) {
+                View.GONE
+            } else {
+                View.VISIBLE
+            }
 
         holder.itemView.setOnClickListener {
             Timber.d("Salon tapped id=${salon.id}")

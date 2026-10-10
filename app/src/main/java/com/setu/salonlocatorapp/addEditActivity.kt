@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.setu.salonlocatorapp.models.SalonModel
 import timber.log.Timber
+import android.widget.RatingBar
 class AddEditActivity : AppCompatActivity() {
 
     //fields initialised when interface is created
@@ -15,6 +16,9 @@ class AddEditActivity : AppCompatActivity() {
     private lateinit var locationInput: EditText
     private lateinit var priceInput: EditText
     private lateinit var distanceInput: EditText
+
+    private lateinit var personalRatingInput: RatingBar
+    private lateinit var personalReviewInput: EditText
     private var editingId: Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +49,9 @@ class AddEditActivity : AppCompatActivity() {
 
         // distance is entered in kilometers
         distanceInput = findViewById(R.id.distanceInput)
+
+        personalRatingInput = findViewById(R.id.ratingBar) //connects the rating and review to the controls in layout
+        personalReviewInput = findViewById(R.id.reviewInput)
 
         val saveButton = findViewById<Button>(R.id.saveButton)
 
@@ -80,12 +87,16 @@ class AddEditActivity : AppCompatActivity() {
         locationInput.setText(salon.location)
         priceInput.setText(salon.price.toString())
         distanceInput.setText(salon.distanceKm.toString())
+        personalRatingInput.rating = salon.personalRating.toFloat() //sets stars to save rating. Ratingbar needs a float
+        personalReviewInput.setText(salon.personalReview)
     }
 
     private fun saveSalon() { //reads text and removes any spaces from start or end
         val name = nameInput.text.toString().trim()
         val location = locationInput.text.toString().trim()
-
+        // reads the selected stars and personal review
+        val personalRating = personalRatingInput.rating.toInt()
+        val personalReview = personalReviewInput.text.toString().trim()
         if (name.isEmpty()) {
             nameInput.error = "Salon name is required" //show error is nothing entered
             return
@@ -116,7 +127,9 @@ class AddEditActivity : AppCompatActivity() {
                 name = name,
                 location = location,
                 price = price,
-                distanceKm = distance
+                distanceKm = distance,
+                personalRating = personalRating,
+                personalReview = personalReview
             )
 
             AppData.salons.create(salon) //add salon to shared in-memory store
@@ -151,8 +164,8 @@ class AddEditActivity : AppCompatActivity() {
                 price = price,
                 distanceKm = distance,
                 visited = existingSalon.visited,
-                personalRating = existingSalon.personalRating,
-                personalReview = existingSalon.personalReview
+                personalRating = personalRating,
+                personalReview = personalReview
             )
 
             AppData.salons.update(salon)
