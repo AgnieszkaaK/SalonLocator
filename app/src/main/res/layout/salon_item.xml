@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
@@ -40,6 +41,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Price: €25, Distance: 2 km" />
+
+            <TextView
+                android:id="@+id/personalRatingText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Your Rating: 4/5" />
+
+            <TextView
+                android:id="@+id/personReviewText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Lovely Service" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
