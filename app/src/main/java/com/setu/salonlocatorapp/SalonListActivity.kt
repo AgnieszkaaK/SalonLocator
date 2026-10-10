@@ -9,20 +9,29 @@ import androidx.recyclerview.widget.RecyclerView
 import com.setu.salonlocatorapp.models.SalonModel
 import androidx.appcompat.app.AlertDialog
 import timber.log.Timber
+import android.widget.CompoundButton //works with switch button
 
 class SalonListActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: SalonAdapter
+    private lateinit var ratingFilterSwitch: CompoundButton //adapter declarations
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_salon_list)
+        setContentView(R.layout.activity_salon_list) //loads salon list from XML layout
 
         recyclerView =
-            findViewById(R.id.SalonRecyclerView)
+            findViewById(R.id.SalonRecyclerView) //connects the variable to recycler view that displays salon cards
 
+        ratingFilterSwitch =
+            findViewById(R.id.ratingFilterSwitch) //connects the variable to the rating filter switch
+
+        // refreshes the list when the switch is turned on or off
+        ratingFilterSwitch.setOnCheckedChangeListener { buttonView, isChecked -> //only runs code when the switch is used
+            refreshSalons()
+        }
         adapter = SalonAdapter(
             salons = AppData.salons.findAll(),
 
@@ -45,7 +54,7 @@ class SalonListActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         val returnButton =
-            findViewById<Button>(R.id.returnButton)
+            findViewById<Button>(R.id.returnButton) //finds the back to menu in the layout
 
         returnButton.setOnClickListener {
             startActivity(
@@ -57,10 +66,27 @@ class SalonListActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        if (::adapter.isInitialized) {
-            adapter.updateSalons(
-                AppData.salons.findAll()
-            )
+        if (::adapter.isInitialized) { //checjk if adapter has been made
+            refreshSalons() //updates list using current filkter
+        }
+    }
+    private fun refreshSalons() {
+
+        val salons = AppData.salons.findAll()
+
+        if (ratingFilterSwitch.isChecked) {
+
+            // only displays salons with a personal rating of 4 or 5
+            val filteredSalons = salons.filter { salon ->
+                salon.personalRating >= 4
+            }
+
+            adapter.updateSalons(filteredSalons) //displays the list of filtered salons
+
+        } else {
+
+            // displays all salons when the filter is off
+            adapter.updateSalons(salons)
         }
     }
 
@@ -84,9 +110,9 @@ class SalonListActivity : AppCompatActivity() {
 // "dialog, button" are required but not needed by the delete code because the button knows what to do
                 AppData.salons.delete(salon.id)
 
-                adapter.updateSalons(
-                    AppData.salons.findAll()
-                )
+             //   adapter.updateSalons(              previous refreshing screen
+               //     AppData.salons.findAll() )
+                refreshSalons() //updates list using current filter
             }
             .setNegativeButton("Cancel", null) //cancels dialog without changin anything
             .show() //displays it
