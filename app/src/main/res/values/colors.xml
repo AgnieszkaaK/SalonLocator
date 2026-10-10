@@ -2,4 +2,18 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- backgrounds -->
+    <color name="salon_background">#f2dcdc</color>
+    <color name="salon_surface">#FAF3ED</color>
+
+    <!-- Muted pink accents -->
+    <color name="salon_primary">#805F68</color>
+    <color name="salon_blush">#ebc7cc</color>
+
+    <!-- Warm grey text -->
+    <color name="salon_text">#403B3D</color>
+    <color name="salon_text_secondary">#70686B</color>
+
+    <!-- Borders and separators -->
+    <color name="salon_outline">#D5C8CC</color>
 </resources>

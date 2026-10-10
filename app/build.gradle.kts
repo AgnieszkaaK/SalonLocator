@@ -36,6 +36,7 @@ dependencies {
     implementation("com.jakewharton.timber:timber:5.0.1")
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.cardview)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.recyclerview)

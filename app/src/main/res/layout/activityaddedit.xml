@@ -13,53 +13,82 @@
             android:id="@+id/formTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
             android:text="Add Salon"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textSize="34sp"
+            android:textStyle="bold|italic" />
 
         <EditText
             android:id="@+id/nameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:fontFamily="sans-serif-light"
             android:hint="Name"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textStyle="italic" />
 
         <EditText
             android:id="@+id/locationInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:fontFamily="sans-serif-light"
             android:hint="Location"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textStyle="italic" />
 
         <EditText
             android:id="@+id/priceInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:fontFamily="sans-serif-light"
             android:hint="Price (€)"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:textStyle="italic" />
 
         <EditText
             android:id="@+id/distanceInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:fontFamily="sans-serif-light"
             android:hint="Distance (km)"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:textStyle="italic" />
 
-        <Button
-            android:id="@+id/saveButton"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Save" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/cancelButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cancel" />
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:backgroundTint="?attr/colorPrimaryContainer"
+                android:fontFamily="sans-serif-light"
+                android:text="Save"
+                android:textColor="?attr/colorPrimary"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:backgroundTint="?attr/colorPrimaryContainer"
+                android:fontFamily="sans-serif-light"
+                android:text="Cancel"
+                android:textColor="?attr/colorPrimary"
+                android:textStyle="bold" />
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

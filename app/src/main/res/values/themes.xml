@@ -1,8 +1,23 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.SalonLocatorApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- ai helped me figure out how to make themes -->
+        <item name="colorPrimary">@color/salon_primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="colorSecondary">@color/salon_primary</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <item name="android:colorBackground">@color/salon_background</item>
+        <item name="colorOnBackground">@color/salon_text</item>
+
+        <item name="colorSurface">@color/salon_surface</item>
+        <item name="colorOnSurface">@color/salon_text</item>
+        <item name="colorOnSurfaceVariant">@color/salon_text_secondary</item>
+
+        <item name="colorPrimaryContainer">@color/salon_blush</item>
+        <item name="colorOnPrimaryContainer">@color/salon_text</item>
+        <item name="colorOutline">@color/salon_outline</item>
     </style>
 
     <style name="Theme.SalonLocatorApp" parent="Base.Theme.SalonLocatorApp" />
