@@ -8,10 +8,11 @@ import com.google.gson.Gson
 //based on SalonMemStore
 //JSON loading and saving will be added next
 class SalonJSONStore(context: Context) : SalonStore {
-    // the file used to save salons in the app's internal storage
 
     private val gson = Gson()// converts salon objects to JSON and back
 
+
+    // the file used to save salons in the app's internal storage
     private val file = File(context.filesDir, "salons.json")
 //filesDir gives folder for app to save its private files
     private val salons = ArrayList<SalonModel>()
@@ -24,6 +25,8 @@ class SalonJSONStore(context: Context) : SalonStore {
     override fun create(salon: SalonModel) { //when salon gets added, the counter is increased by 1 and assigns the new ID to the salon
         salon.id = lastId.incrementAndGet()
         salons.add(salon) //add the salon to the in-memory state
+        save()
+
         Timber.d("Memory store: created salon id=${salon.id}")
     }
 
@@ -38,6 +41,7 @@ class SalonJSONStore(context: Context) : SalonStore {
             foundSalon.visited = salon.visited
             foundSalon.personalRating = salon.personalRating
             foundSalon.personalReview = salon.personalReview
+            save()
             Timber.d("Memory store: updated salon id=${salon.id}")
             true
         } else {
@@ -50,6 +54,7 @@ class SalonJSONStore(context: Context) : SalonStore {
 
         return if (foundSalon != null) {
             salons.remove(foundSalon)
+            save()
             Timber.d("Memory store: deleted salon id=$id")
             true
         } else {
