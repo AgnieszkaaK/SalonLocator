@@ -1,7 +1,21 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.SalonLocatorApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+<!-- ai helped me figure out how to make themes -->
+
+        <item name="colorPrimary">#D8B4BF</item>
+        <item name="colorOnPrimary">#38242C</item>
+
+        <item name="colorSecondary">#D8B4BF</item>
+        <item name="colorOnSecondary">#38242C</item>
+        <item name="android:colorBackground">#30282E</item>
+        <item name="colorSurface">#3B3138</item>
+
+        <item name="colorOnSurface">#F2E8EC</item>
+        <item name="colorOnSurfaceVariant">#CBBCC3</item>
+
+        <item name="colorPrimaryContainer">#50353F</item>
+        <item name="colorOnPrimaryContainer">#F5DCE5</item>
+        <item name="colorOutline">#9B8790</item>
     </style>
 </resources>
