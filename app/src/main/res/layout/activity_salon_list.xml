@@ -38,22 +38,24 @@
                 android:id="@+id/ratingFilterSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:checked="false"
                 android:fontFamily="sans-serif-light"
                 android:gravity="center_horizontal"
                 android:text="4+ Stars"
                 android:textStyle="bold|italic"
-                tools:layout_editor_absoluteX="260dp"
-                tools:layout_editor_absoluteY="38dp" />
-
-            <Spinner
-                android:id="@+id/sortSpinner"
-                android:layout_width="wrap_content"
-                android:layout_height="19dp"
-                tools:layout_editor_absoluteX="39dp"
-                tools:layout_editor_absoluteY="43dp" />
+                app:layout_constraintBottom_toBottomOf="@id/salonsTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/salonsTitle"
+                app:layout_constraintVertical_bias="1.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Spinner
+            android:id="@+id/sortSpinner"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/SalonRecyclerView"
