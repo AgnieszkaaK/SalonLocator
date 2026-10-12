@@ -34,9 +34,11 @@ class SalonListActivity : AppCompatActivity() {
         sortSpinner =
             findViewById(R.id.sortSpinner) //connects variable to the spinner dropdown
         val sortOptions = listOf( //options in the drop down
-            "Name: A–Z",
-            "Rating: highest first"
+                "Sort by",
+        "Name: A–Z",
+        "Rating: highest first"
         )
+
 
         val sortAdapter = ArrayAdapter( //adapater created to display sort options
             this,
@@ -123,12 +125,13 @@ class SalonListActivity : AppCompatActivity() {
                 salons
             }
 
-        // Option 1 sorts by rating; option 0 sorts by name.
+
+// Sorts only when the user chooses a sorting option.
         val sortedSalons =
-            if (sortSpinner.selectedItemPosition == 1) { //if selected is 1
-                filteredSalons.sortedByDescending { it.personalRating } //sort by rating (highest to lowest)
-            } else {
-                filteredSalons.sortedBy { it.name.lowercase() } //if 0, sort by name
+            when (sortSpinner.selectedItemPosition) {
+                1 -> filteredSalons.sortedBy { it.name.lowercase() }
+                2 -> filteredSalons.sortedByDescending { it.personalRating }
+                else -> filteredSalons
             }
 
         adapter.updateSalons(sortedSalons) //update the view with new salons
