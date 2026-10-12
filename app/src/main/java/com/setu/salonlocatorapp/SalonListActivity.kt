@@ -10,12 +10,18 @@ import com.setu.salonlocatorapp.models.SalonModel
 import androidx.appcompat.app.AlertDialog
 import timber.log.Timber
 import android.widget.CompoundButton //works with switch button
+import android.widget.Spinner
+import android.widget.ArrayAdapter
+import android.view.View
+import android.widget.AdapterView
+
 
 class SalonListActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: SalonAdapter
     private lateinit var ratingFilterSwitch: CompoundButton //adapter declarations
+    private lateinit var sortSpinner: Spinner //dropdown sorting spiinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +31,42 @@ class SalonListActivity : AppCompatActivity() {
         recyclerView =
             findViewById(R.id.SalonRecyclerView) //connects the variable to recycler view that displays salon cards
 
+        sortSpinner =
+            findViewById(R.id.sortSpinner) //connects variable to the spinner dropdown
+        val sortOptions = listOf( //options in the drop down
+            "Name: A–Z",
+            "Rating: highest first"
+        )
+
+        val sortAdapter = ArrayAdapter( //adapater created to display sort options
+            this,
+            android.R.layout.simple_spinner_item, //androids layout for selected option
+            sortOptions
+        )
+// dropdown layout for the choices shown when tapped
+        sortAdapter.setDropDownViewResource(
+            android.R.layout.simple_spinner_dropdown_item
+        )
+
+        sortSpinner.adapter = sortAdapter
+
+        // Refreshes the salon list when a sorting option is selected.
+        sortSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    refreshSalons()
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    // No action needed when nothing is selected.
+                }
+            }
         ratingFilterSwitch =
             findViewById(R.id.ratingFilterSwitch) //connects the variable to the rating filter switch
 
@@ -71,23 +113,25 @@ class SalonListActivity : AppCompatActivity() {
         }
     }
     private fun refreshSalons() {
-
         val salons = AppData.salons.findAll()
 
-        if (ratingFilterSwitch.isChecked) {
-
-            // only displays salons with a personal rating of 4 or 5
-            val filteredSalons = salons.filter { salon ->
-                salon.personalRating >= 4
+        // Keeps only ratings of 4 or 5 when the filter is enabled.
+        val filteredSalons =
+            if (ratingFilterSwitch.isChecked) {
+                salons.filter { it.personalRating >= 4 }
+            } else {
+                salons
             }
 
-            adapter.updateSalons(filteredSalons) //displays the list of filtered salons
+        // Option 1 sorts by rating; option 0 sorts by name.
+        val sortedSalons =
+            if (sortSpinner.selectedItemPosition == 1) { //if selected is 1
+                filteredSalons.sortedByDescending { it.personalRating } //sort by rating (highest to lowest)
+            } else {
+                filteredSalons.sortedBy { it.name.lowercase() } //if 0, sort by name
+            }
 
-        } else {
-
-            // displays all salons when the filter is off
-            adapter.updateSalons(salons)
-        }
+        adapter.updateSalons(sortedSalons) //update the view with new salons
     }
 
     private fun editSalon(salon: SalonModel) {
