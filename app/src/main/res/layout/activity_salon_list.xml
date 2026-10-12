@@ -38,21 +38,22 @@
                 android:id="@+id/ratingFilterSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="256dp"
                 android:checked="false"
                 android:fontFamily="sans-serif-light"
                 android:gravity="center_horizontal"
                 android:text="4+ Stars"
                 android:textStyle="bold|italic"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                tools:layout_editor_absoluteX="260dp"
+                tools:layout_editor_absoluteY="38dp" />
+
+            <Spinner
+                android:id="@+id/sortSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                tools:layout_editor_absoluteX="39dp"
+                tools:layout_editor_absoluteY="43dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <Spinner
-            android:id="@+id/sortSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/SalonRecyclerView"
