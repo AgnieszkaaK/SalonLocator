@@ -38,21 +38,32 @@
                 android:id="@+id/ratingFilterSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="256dp"
+                android:layout_marginEnd="16dp"
                 android:checked="false"
                 android:fontFamily="sans-serif-light"
                 android:gravity="center_horizontal"
                 android:text="4+ Stars"
                 android:textStyle="bold|italic"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintBottom_toBottomOf="@id/salonsTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/salonsTitle"
+                app:layout_constraintVertical_bias="1.0" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Spinner
+            android:id="@+id/sortSpinner"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/SalonRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1" >
+
+        </androidx.recyclerview.widget.RecyclerView>
 
         <Button
             android:id="@+id/returnButton"
@@ -65,5 +76,6 @@
             android:text="Back to Menu"
             android:textAllCaps="false"
             android:textColor="?attr/colorPrimary" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
